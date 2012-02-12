@@ -28,6 +28,17 @@
   </div>
 </div>
 <div class="start-now-container">
-	<a class="btn primary large">Start Now</a>
-</div>  
+	<a href="/create/survey/" class="btn primary large">Start Now</a>
+</div>
+
+<br />
+<div id="#my-surveys">
+  <h2>My Surveys</h2>
+  <ul class="survey">
+	{% for s in surveys %}
+	<li><a class="span12 btn survey-button" href="/dashboard/?sid={{s.id}}">{{s.name}}</a></li>
+	{% endfor %}
+  </ul>
+</div>
+
 {% endblock %}

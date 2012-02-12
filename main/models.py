@@ -13,11 +13,11 @@ class Survey(models.Model):
 
     def get_all_questions(self):
         questions = []
-        for q in BooleanQuestion.objects.all():
+        for q in BooleanQuestion.objects.filter(survey=self):
             questions.append(q)
-        for q in TextQuestion.objects.all():
+        for q in TextQuestion.objects.filter(survey=self):
             questions.append(q)
-        for q in MultipleChoiceQuestion.objects.all():
+        for q in MultipleChoiceQuestion.objects.filter(survey=self):
             questions.append(q)
 
         questions = sorted(questions,key=lambda q: q.id)

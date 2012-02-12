@@ -1,6 +1,10 @@
 BASE_QUESTION_TEMPLATE = """
+<div class="clearfix">
   <label>{{text}}</label>
-  <input type="input" name="{{id}}" />
+  <div class="input">
+    <input type="input" name="{{id}}" />
+  </div>
+</div>
 """
 
 MULTIPLE_CHOICE_TEMPLATE = """

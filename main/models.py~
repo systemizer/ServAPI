@@ -9,6 +9,7 @@ class Survey(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     deleted = models.BooleanField(default=False)
     creator = models.ForeignKey(User,related_name="authored_surveys",null=True,blank=True) #for hackathon time reasons
+    is_published = models.BooleanField(default=False)
 
     def get_all_questions(self):
         questions = []

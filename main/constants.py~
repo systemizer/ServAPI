@@ -1,11 +1,11 @@
 BASE_QUESTION_TEMPLATE = """
   <label>{{text}}</label>
-  <input type="input" name="{{id}}-answer" />
+  <input type="input" name="{{id}}" />
 """
 
 MULTIPLE_CHOICE_TEMPLATE = """
   <label>{{text}}</label>
-  <select name="{{id}}-answer">
+  <select name="{{id}}">
     {% for o in choices %}
        <option value="{{o}}">{{o}}</option>
     {% endfor %}
@@ -15,5 +15,5 @@ MULTIPLE_CHOICE_TEMPLATE = """
 
 BOOLEAN_QUESTION_TEMPLATE = """
    <label>{{text}}</label>
-   <input type="checkbox" name="{{id}}-answer" />
+   <input type="checkbox" name="{{id}}" />
 """

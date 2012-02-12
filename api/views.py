@@ -39,3 +39,25 @@ def fetch_survey(request):
         return HttpResponseBadRequest("Could not find Survey")
 
                                                   
+def fetch_question(request):
+    qid = request.GET.get("qid")
+    if not qid:
+        return HttpResponseBadRequest("Could not find question")
+    try:
+        question = Question.objects.get(id=qid)
+        output = {}
+        output['id'] = qid
+        output['num_answers'] = question.question_results.count()
+        output['text'] = question.text
+        output['survey_id'] = question.survey.id
+        output['answers'] = []
+        for answer in question.question_results.all():
+            a = {}
+            a['text'] = answer.answer
+            a['id'] = answer.id
+            output['answers'].append(a)
+        return HttpResponse(json.dumps(output),mimetype="application/json")
+
+    except Question.DoesNotExist:
+        return HttpResponseBadRequest("Could not find question")
+        
