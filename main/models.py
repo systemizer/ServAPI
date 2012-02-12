@@ -5,10 +5,11 @@ from django.template import Context,Template
 from project.main.constants import *
 
 class Survey(models.Model):
-    name = models.CharField(max_length=128)
+    name = models.CharField(max_length=128,default="Untitled")
     created = models.DateTimeField(auto_now_add=True)
     deleted = models.BooleanField(default=False)
-    creator = models.ForeignKey(User,related_name="authored_surveys")
+    creator = models.ForeignKey(User,related_name="authored_surveys",null=True,blank=True) #for hackathon time reasons
+    is_published = models.BooleanField(default=False)
 
     def get_all_questions(self):
         questions = []
@@ -38,6 +39,8 @@ class Question(models.Model):
         context = {'survey':self.survey,'text':self.text,'id':self.id}
         return Context(context)
 
+    def get_type(self):
+        return "Text"
 
     
 class TextQuestion(Question):
@@ -46,6 +49,10 @@ class TextQuestion(Question):
 
 class BooleanQuestion(Question):
     template = BOOLEAN_QUESTION_TEMPLATE
+
+    def get_type(self):
+        return "Checkbox"
+
     
 class MultipleChoiceQuestion(Question):
     template = MULTIPLE_CHOICE_TEMPLATE
@@ -62,8 +69,12 @@ class MultipleChoiceQuestion(Question):
         context.update({'choices':choices})
         return context
 
+    def get_type(self):
+        return "Multiple Choice"
+
 class MultipleCheckboxQuestion(MultipleChoiceQuestion):
-    pass
+    def get_type(self):
+        return "Multiple Checkbox"
 
 
 

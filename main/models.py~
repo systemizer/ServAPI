@@ -5,10 +5,23 @@ from django.template import Context,Template
 from project.main.constants import *
 
 class Survey(models.Model):
-    name = models.CharField(max_length=128)
+    name = models.CharField(max_length=128,default="Untitled")
     created = models.DateTimeField(auto_now_add=True)
     deleted = models.BooleanField(default=False)
-    creator = models.ForeignKey(User,related_name="authored_surveys")
+    creator = models.ForeignKey(User,related_name="authored_surveys",null=True,blank=True) #for hackathon time reasons
+
+    def get_all_questions(self):
+        questions = []
+        for q in BooleanQuestion.objects.all():
+            questions.append(q)
+        for q in TextQuestion.objects.all():
+            questions.append(q)
+        for q in MultipleChoiceQuestion.objects.all():
+            questions.append(q)
+
+        questions = sorted(questions,key=lambda q: q.id)
+        return questions
+        
 
 class Question(models.Model):
     template = BASE_QUESTION_TEMPLATE
@@ -25,6 +38,8 @@ class Question(models.Model):
         context = {'survey':self.survey,'text':self.text,'id':self.id}
         return Context(context)
 
+    def get_type(self):
+        return "Text"
 
     
 class TextQuestion(Question):
@@ -33,15 +48,19 @@ class TextQuestion(Question):
 
 class BooleanQuestion(Question):
     template = BOOLEAN_QUESTION_TEMPLATE
+
+    def get_type(self):
+        return "Checkbox"
+
     
 class MultipleChoiceQuestion(Question):
     template = MULTIPLE_CHOICE_TEMPLATE
     choices = models.TextField() #comma seperated list of choices
 
-    def render(self):
-        t = Template(self.template)
-        context = self.get_context()
-        return t.render(context)
+#     def render(self):
+#         t = Template(self.template)
+#         context = self.get_context()
+#         return t.render(context)
 
     def get_context(self):
         choices = self.choices.split(",")
@@ -49,8 +68,12 @@ class MultipleChoiceQuestion(Question):
         context.update({'choices':choices})
         return context
 
+    def get_type(self):
+        return "Multiple Choice"
+
 class MultipleCheckboxQuestion(MultipleChoiceQuestion):
-    pass
+    def get_type(self):
+        return "Multiple Checkbox"
 
 
 

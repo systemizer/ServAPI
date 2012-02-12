@@ -18,7 +18,7 @@ class Migration(SchemaMigration):
         # Adding model 'QuestionResult'
         db.create_table('results_questionresult', (
             ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('question', self.gf('django.db.models.fields.related.ForeignKey')(related_name='question_result', to=orm['main.Question'])),
+            ('question', self.gf('django.db.models.fields.related.ForeignKey')(related_name='question_results', to=orm['main.Question'])),
             ('survey_result', self.gf('django.db.models.fields.related.ForeignKey')(related_name='survey_questions', to=orm['results.SurveyResult'])),
             ('answer', self.gf('django.db.models.fields.CharField')(max_length=128)),
         ))
@@ -80,16 +80,16 @@ class Migration(SchemaMigration):
         'main.survey': {
             'Meta': {'object_name': 'Survey'},
             'created': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
-            'creator': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'authored_surveys'", 'to': "orm['auth.User']"}),
+            'creator': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'authored_surveys'", 'null': 'True', 'to': "orm['auth.User']"}),
             'deleted': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '128'})
+            'name': ('django.db.models.fields.CharField', [], {'default': "'Untitled'", 'max_length': '128'})
         },
         'results.questionresult': {
             'Meta': {'object_name': 'QuestionResult'},
             'answer': ('django.db.models.fields.CharField', [], {'max_length': '128'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'question': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'question_result'", 'to': "orm['main.Question']"}),
+            'question': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'question_results'", 'to': "orm['main.Question']"}),
             'survey_result': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'survey_questions'", 'to': "orm['results.SurveyResult']"})
         },
         'results.surveyresult': {
