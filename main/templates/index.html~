@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+<div class="hero-unit">
+  <h1> Welcome to ServAPI</h1>
+  <p>ServAPI was developed as a reaction to mal-formed survey data. More precisely,
+	CSV data files that are reliant on a schema that is only available via pdf documentation.
+	Such data sources make it difficult for developers to access valuable data.
+  </p>
+  <p>
+	<a class="btn primary large">Learn more</a>
+  </p>  
+</div>
+
+<div class="row">
+  <div class="span-one-third">
+    <h2>1. Create a Survey</h2>
+    <p>Using our simple interface, create a new survey and add questions that are pertinent to your case study</p>
+  </div>
+  <div class="span-one-third">
+    <h2>2. Share your link</h2>
+    <p>Every survey has a unique link that enables tracking and monitoring of survey results. Check in realtime with graphs and visualizations to see how your survey is progressing</p>
+  </div>
+  <div class="span-one-third">
+    <h2>3. API</h2>
+    <p>Every survey is linked with an API from our web service. This enables developers to easily use your data to create new and interesting applications</p>
+  </div>
+</div>
+<div class="start-now-container">
+	<a href="/create/survey/" class="btn primary large">Start Now</a>
+</div>
+
+<br />
+<div id="#my-surveys">
+  <h2>My Surveys</h2>
+  <ul class="survey">
+	{% for s in surveys %}
+	<li><a class="survey-button" href="/dashboard/?sid=s.id">{{s.name}}</a></li>
+	{% endfor %}
+  </ul>
+</div>
+
+{% endblock %}

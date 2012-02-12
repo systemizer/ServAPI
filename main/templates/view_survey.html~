@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="page-header">
+  <h1>Create a survey <small>add questions, survey title, and publish</small></h1>
+</div>
+
+
+{% endblock %}

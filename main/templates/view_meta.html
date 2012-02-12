@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="content">
+  <div class="page-header">
+    <h1>Survey API Reference <small>{{survey.name}} - <a class="btn"  href="/take/survey/?sid={{survey.id}}">go to survey</a> <a class="btn" href="/dashboard/?sid={{survey.id}}">go to dashboard</a></small></h1>
+  </div>
+  <h2>Survey API Reference</h2>
+  <ul>
+	<li><p><b>Server ID:</b> {{survey.id}}</p></li>
+	<li><p><b>JSON Representation:</b> <a href="/api/survey/?sid={{survey.id}}">/api/survey/?sid={{survey.id}}</a></p></li>
+  </ul>
+  <h2>Survey Questions API Reference</h2>
+  <table class="zebra-striped">
+	<thead>
+	  <tr>
+		<th>Question ID</th>
+		<th>Question Text</th>
+		<th>JSON Representation</th>
+	  </tr>		
+	</thead>
+	<tbody>
+	  {% for question in survey.questions.all %}
+	  <tr>
+		<td>{{question.id}}</td>
+		<td>{{question.text}}</td>
+		<td><a href="/api/question/?qid={{question.id}}">/api/question/?qid={{question.id}}</a></td>
+	  </tr>
+	  {% endfor %}
+	</tbody>
+  </table>
+</div>
+ {% endblock %}

@@ -1,0 +1,6 @@
+from django.conf.urls.defaults import patterns, include, url
+
+urlpatterns = patterns('project.api.views',
+  url(r'survey/$','fetch_survey'),
+  url(r'question/$','fetch_question'),
+)                       

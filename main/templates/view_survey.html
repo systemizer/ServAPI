@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="page-header">
+  <h1>Survey Results <small>{{survey.name}}</small></h1>
+</div>
+<div class="page-content">
+  <a href="/dashboard/?sid={{survey.id}}">Go back to dashboard</a>
+  {% for question in survey.questions.all %}
+  <h3>{{question.text}}</h3>
+  <ul class="answer-list">
+	{% for answer in question.question_results.all %}
+	<li class="well">{{answer.answer}}</li>
+	{% endfor %}
+  </ul>
+  {% endfor %}
+  
+</div>
+
+
+{% endblock %}
