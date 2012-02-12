@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% for question in survey.get_all_questions %}
+
+<form action="?sid={{survey.id}}" method="POST">
+  {% csrf_token %}
+  {{question.render|safe}}
+  <input type="submit" />
+</form>
+{% endfor %}
+
+{% endblock %}

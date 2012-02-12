@@ -1,0 +1,15 @@
+<html>
+  <head>
+	<link rel="stylesheet" href="{{STATIC_URL}}css/stats.css" type="text/css" />
+	<link rel="stylesheet" href="{{STATIC_URL}}css/bootstrap.min.css" type="text/css" />
+	<script type="text/javascript" src="{{STATIC_URL}}js/jquery.min.js"></script>
+	<script type="text/javascript" src="{{STATIC_URL}}js/.js"></script>
+	<title>{% block title %}SurveyAPI{% endblock %}</title>
+  </head>
+  <body>
+	<div class="container" id="container">
+	  {% block content %}
+	  {% endblock %}
+	</div>
+  </body>
+</html>
