@@ -110,6 +110,7 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'project.main',
     'project.results',
+    'project.api',
     'south',
 )
 
