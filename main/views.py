@@ -4,11 +4,14 @@ from project.main.models import *
 from django.http import HttpResponseBadRequest, Http404, HttpResponseRedirect
 
 from project.results.models import *
+from project.decorators import unsupport_ie
 
+@unsupport_ie
 def index(request):
     surveys = Survey.objects.all()
     return render_to_response("index.html",{'surveys':surveys},RequestContext(request))
 
+@unsupport_ie
 def take_survey(request):
     sid = request.GET.get("sid")
     if not sid:
@@ -36,12 +39,13 @@ def take_survey(request):
         return render_to_response("survey.html",{'survey':survey},RequestContext(request))
 
 
-
+@unsupport_ie
 def create_survey(request):
     survey = Survey()
     survey.save()
     return HttpResponseRedirect("/edit/survey/?sid=%s" % survey.id)
 
+@unsupport_ie
 def edit_survey(request):
     sid = request.GET.get("sid")
     if not sid:
@@ -58,6 +62,7 @@ def edit_survey(request):
     except Survey.DoesNotExist:
         return HttpResponseBadRequest("No Survey Found")
 
+@unsupport_ie
 def publish_survey(request):
     sid = request.GET.get("sid")
     if not sid:
@@ -70,7 +75,7 @@ def publish_survey(request):
     except Survey.DoesNotExist:
         return HttpResponseBadRequest("Could not find the survey")
 
-
+@unsupport_ie
 def create_question(request):
     sid = request.GET.get("sid")
     if not sid:
@@ -88,6 +93,7 @@ def create_question(request):
     else:
         return render_to_response("create_question.html",{'sid':sid},RequestContext(request))
 
+@unsupport_ie
 def dashboard(request):
     sid = request.GET.get("sid")
     if not sid:
@@ -99,7 +105,7 @@ def dashboard(request):
     except Survey.DoesNotExist:
         return HttpResponseBadRequest("Survey could not be found")
 
-    
+@unsupport_ie    
 def view_survey(request):
     sid = request.GET.get("sid")
     if not sid:
@@ -111,6 +117,7 @@ def view_survey(request):
     except Survey.DoesNotExist:
         return HttpResponseBadRequest("No Survey Found")
 
+@unsupport_ie
 def view_meta(request):
     sid = request.GET.get("sid")
     if not sid:
@@ -121,6 +128,7 @@ def view_meta(request):
     except Survey.DoesNotExist:
         return HttpResponseBadRequest("No survey found")
 
+@unsupport_ie
 def view_all_surveys(request):
     surveys = Survey.objects.all()
     return render_to_response("view_all_surveys.html",{'surveys':surveys},RequestContext(request))
