@@ -1,9 +1,0 @@
-{% extends "base.html" %}
-
-{% block content %}
-<div class="hero-unit">
-  <h1>Thank you!</h1>
-  <p>This is the message that you can put once someont finishes a survey. This is cool!!!!</p>
-</div>
-
-{% endblock %}
